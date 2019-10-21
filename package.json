@@ -1,0 +1,52 @@
+{
+    "name": "program-editor",
+    "version": "0.0.1",
+    "description": "This is the shit!",
+    "scripts": {
+        "build-coffee": "coffee -o toolset/compiled/js/ -c sources/source/*/*.coffee",
+        "watch-coffee": "coffee -o toolset/compiled/js/ -cw sources/source/*/*.coffee",
+        "ncu-update": "ncu -u",
+        "update-packages": "run-s -ns ncu-update install",
+        "postinstall": "npm run initialize-thingy",
+        "initialize-thingy": "run-s -ns patch-stuff create-compile-folders copyscript build",
+        "bundle": "webpack-cli --config webpack.config.js",
+        "watch-bundle": "webpack-cli --config webpack-watch.config.js",
+        "watch-service": "nodemon output/service.js",
+        "release": "run-s -ns initialize-thingy release-script",
+        "test": "run-s -ns build watch",
+        "build": "run-s -ns build-coffee bundle",
+        "build-watch": "run-p -nsr watch-coffee watch-bundle",
+        "watch": "run-p -nsr watch-coffee watch-bundle watch-service",
+        "release-script": "toolset/thingy-build-system/service/release-script.sh",
+        "create-compile-folders": "toolset/thingy-build-system/service/create-compile-folders.sh",
+        "patch-stuff": "sources/patches/patch-stuff.sh",
+        "copyscript": "sources/ressources/copyscript.sh",
+        "push": "toolset/thingy-build-system/service/add-commit-and-push-all-repos.sh",
+        "pull": "toolset/thingy-build-system/service/pull-all.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JhonnyJason/program-editor.git"
+    },
+    "author": "Lenard Frommelt",
+    "license": "Unlicense",
+    "bugs": {
+        "url": "https://github.com/JhonnyJason/program-editor/issues"
+    },
+    "homepage": "https://github.com/JhonnyJason/program-editor#readme",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "coffeescript": "^2.4.1",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "express-ws": "^4.0.0",
+        "mariadb": "^2.1.2",
+        "mysql": "^2.17.1",
+        "nodemon": "^1.19.2",
+        "npm-check-updates": "^3.1.23",
+        "npm-run-all": "^4.1.5",
+        "systemd": "^0.3.1",
+        "webpack": "^4.40.2",
+        "webpack-cli": "^3.3.9"
+    }
+}
